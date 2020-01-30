@@ -55,7 +55,7 @@ title('Opening')
 
 % closing: fill the cavities inside circles with structural element
 %{(-1,-1), (-1,0), (0,0), (0, -1)}, and show it
-new_B = closing(new1);
+new_B = closing(B_open);
 figure();
 imshow(new_B);
 title('closing')
