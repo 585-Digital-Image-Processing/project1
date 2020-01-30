@@ -1,5 +1,37 @@
+%%%%%%%%%%%%% main.m file %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Purpose:  
+%      Realize Hit-or-miss  
+%
+% Input Variables:
+%      f            input 2D rgb image
+%
+%      
+% Returned Results:
+%      B            A binary image of f
+%      new_B        Image B after noise removal
+%      smallest     An image indicating locations of smallest circles in B
+%      biggest      An image indicating locations of biggest circles in B
+%
+% Processing Flow:
+%      1.  Load and display input image
+%      2.  Compute and write clipped version of input image
+%      3.  Compute and display 3x3 neighborhood-average of input image
+%          
+%
+%  Restrictions/Notes:
+%      This function requires an 8-bit image as input.  
+%
+%  The following functions are called:
+%      zero.m       create an image full of zeroes
+%      mean3x3.m    filter with a 3x3 mean filter
+%          worked into the code below - try to do this yourself
+%
+%  Author:      William E. Higgins
+%  Date:        1/7/2020
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Step1: input the image f, and take the gray layer
+
+% Step1: Load the image f, and take its gray layer
 f=imread('RandomDisks-P10.jpg');
 f1 = f(:,:,1);
 imshow(f1);
