@@ -1,10 +1,11 @@
 function B = biImageConv(A)
 
-% Set the threshold
+% Set the threshold of gray level
 level = 0.5;
 value = level * 255;
 
-%turn gray picture to binary picture
+%turn rgb gray picture to binary picture
+% set the black and white color inversed
 [m, n] = size(A);
 B = zeros(m,n); 
 for i = 1:m

@@ -28,21 +28,23 @@
 %      mean3x3.m    filter with a 3x3 mean filter
 %          worked into the code below - try to do this yourself
 %
-%  Author:      William E. Higgins
-%  Date:        1/7/2020
+%  Author:      Yanxi Yang, Jiuchao Yin, Hongjie Liu
+%  Date:        1/30/2020
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% Step1: Load the image f, and take its gray layer
+% Step1: Load the image f
 f=imread('RandomDisks-P10.jpg');
-f1 = f(:,:,1);
-imshow(f1);
+figure()
+imshow(f);
 title('Original Image');
 
-% Step 2: Convert the original image to binary image B and show it
-B = biImageConv(f1); 
+% Step 2: Convert the original rgb image to gray level
+f1 = f(:,:,1);
+% convert gray image to binary image
+f2= biImageConv(f1); 
 figure()
-imshow(B);
+imshow(f2);
 title('Binary image');
 
 % Step3: use opening and closing to remove noise at the background and
@@ -50,7 +52,7 @@ title('Binary image');
 
 % Opening: Remove the noise outside circles at the background with 
 % structural element {(-1,-1), (-1,0)}
-B_open = opening(B);
+B_open = opening(f2);
 figure();
 imshow(B_open);
 title('Opening')
@@ -61,6 +63,7 @@ new_B = closing(B_open);
 figure();
 imshow(new_B);
 title('closing')
+
 
 % Step 4: find all circles in the image and get their centers and radius
 % with imfindcircles
@@ -77,12 +80,12 @@ min_r=round(min(r));
 
 % First: generate structuring element A and B
 % because of the deviation, so we make A smaller (radius = 8), and the hole 
-% in B bigger (radius = 10), then we can detect the smallest circles which
+% in B biggest (radius = 10), then we can detect the smallest circles which
 % are not round enough.
-% generate A
+% generate structure element A
 [r1, c1]=meshgrid(1:19);
 A=sqrt((r1-floor(19/2)).^2+(c1-floor(19/2)).^2)<8;
-% generate B
+% generate structure element B
 [r2, c2]=meshgrid(1:21);
 B_temp=sqrt((r2-floor(21/2)).^2+(c2-floor(21/2)).^2)<10;
 B=xor(B_temp,1);
@@ -96,25 +99,41 @@ right=erosion(new_B_c,B);
 smallest=bitand_s(left,right);
 figure()
 imshow(smallest);
-title('Position of Smallest Circle');
+title('Position of Smallest Disks');
 
 % Step 6: find the biggest circles
 
-% generate A
+% generate structuring element A_biggest
 [r1, c1]=meshgrid(1:65);
-A_bigger=sqrt((r1-floor(65/2)).^2+(c1-floor(65/2)).^2)<31;
-% generate B
+A_biggest=sqrt((r1-floor(65/2)).^2+(c1-floor(65/2)).^2)<31;
+% generate structuring element B_biggest
 [r2, c2]=meshgrid(1:69);
-B_bigger_temp=sqrt((r2-floor(69/2)).^2+(c2-floor(69/2)).^2)<33;
-B_bigger=xor(B_bigger_temp,1);
+B_biggest_temp=sqrt((r2-floor(69/2)).^2+(c2-floor(69/2)).^2)<33;
+B_biggest=xor(B_biggest_temp,1);
+
+
+% show structuring elements in finding smallest and biggest disks
+figure()
+subplot(1,4,1);
+imshow(A);
+title('A-smallest');
+subplot(1,4,2);
+imshow(B);
+title('B-smallest');
+subplot(1,4,3);
+imshow(A_biggest);
+title('A-biggest');
+subplot(1,4,4);
+imshow(B_biggest);
+title('B-biggest');
 
 % Find the biggest circles and show their positions
-left_bigger=erosion(new_B,A_bigger);
-right_bigger=erosion(new_B_c,B_bigger);
-biggest=bitand_s(left_bigger,right_bigger);
+left_biggest=erosion(new_B,A_biggest);
+right_biggest=erosion(new_B_c,B_biggest);
+biggest=bitand_s(left_biggest,right_biggest);
 figure()
 imshow(biggest);
-title('Position of Biggest Circle');
+title('Position of Biggest Disks');
 
 
 
