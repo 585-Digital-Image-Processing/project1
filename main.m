@@ -37,7 +37,7 @@ f1 = f(:,:,1);
 imshow(f1);
 title('Original Image');
 
-% Step 2: Convert the original image to binary image B and show it
+% Step 2: Convert the gray image to binary image B and show it
 B = biImageConv(f1); 
 figure()
 imshow(B);
@@ -94,7 +94,7 @@ right=erosion(new_B_c,B);
 smallest=bitand_s(left,right);
 figure()
 imshow(smallest);
-title('Position of Smallest Circle');
+title('Position of Smallest Disks');
 
 % Step 6: find the biggest circles
 
@@ -112,7 +112,7 @@ right_bigger=erosion(new_B_c,B_bigger);
 biggest=bitand_s(left_bigger,right_bigger);
 figure()
 imshow(biggest);
-title('Position of Biggest Circle');
+title('Position of Biggest Disks');
 
 
 
