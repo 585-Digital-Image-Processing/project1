@@ -38,9 +38,9 @@ imshow(f1);
 title('Original Image');
 
 % Step 2: Convert the gray image to binary image B and show it
-B = biImageConv(f1); 
+f2= biImageConv(f1); 
 figure()
-imshow(B);
+imshow(f2);
 title('Binary image');
 
 % Step3: use opening and closing to remove noise at the background and
@@ -48,7 +48,7 @@ title('Binary image');
 
 % Opening: Remove the noise outside circles at the background with 
 % structural element {(-1,-1), (-1,0)}
-B_open = opening(B);
+B_open = opening(f2);
 figure();
 imshow(B_open);
 title('Opening')
@@ -75,12 +75,12 @@ min_r=round(min(r));
 
 % First: generate structuring element A and B
 % because of the deviation, so we make A smaller (radius = 8), and the hole 
-% in B bigger (radius = 10), then we can detect the smallest circles which
+% in B biggest (radius = 10), then we can detect the smallest circles which
 % are not round enough.
-% generate A
+% generate structure element A
 [r1, c1]=meshgrid(1:19);
 A=sqrt((r1-floor(19/2)).^2+(c1-floor(19/2)).^2)<8;
-% generate B
+% generate structure element B
 [r2, c2]=meshgrid(1:21);
 B_temp=sqrt((r2-floor(21/2)).^2+(c2-floor(21/2)).^2)<10;
 B=xor(B_temp,1);
@@ -98,18 +98,34 @@ title('Position of Smallest Disks');
 
 % Step 6: find the biggest circles
 
-% generate A
+% generate structuring element A_biggest
 [r1, c1]=meshgrid(1:65);
-A_bigger=sqrt((r1-floor(65/2)).^2+(c1-floor(65/2)).^2)<31;
-% generate B
+A_biggest=sqrt((r1-floor(65/2)).^2+(c1-floor(65/2)).^2)<31;
+% generate structuring element B_biggest
 [r2, c2]=meshgrid(1:69);
-B_bigger_temp=sqrt((r2-floor(69/2)).^2+(c2-floor(69/2)).^2)<33;
-B_bigger=xor(B_bigger_temp,1);
+B_biggest_temp=sqrt((r2-floor(69/2)).^2+(c2-floor(69/2)).^2)<33;
+B_biggest=xor(B_biggest_temp,1);
+
+
+% show structuring elements in finding smallest and biggest disks
+figure()
+subplot(1,4,1);
+imshow(A);
+title('A-smallest');
+subplot(1,4,2);
+imshow(B);
+title('B-smallest');
+subplot(1,4,3);
+imshow(A_biggest);
+title('A-biggest');
+subplot(1,4,4);
+imshow(B_biggest);
+title('B-biggest');
 
 % Find the biggest circles and show their positions
-left_bigger=erosion(new_B,A_bigger);
-right_bigger=erosion(new_B_c,B_bigger);
-biggest=bitand_s(left_bigger,right_bigger);
+left_biggest=erosion(new_B,A_biggest);
+right_biggest=erosion(new_B_c,B_biggest);
+biggest=bitand_s(left_biggest,right_biggest);
 figure()
 imshow(biggest);
 title('Position of Biggest Disks');
