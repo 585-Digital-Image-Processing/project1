@@ -1,30 +1,30 @@
 %%%%%%%%%%%%%  Function closing %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Purpose:  
+% Purpose:
 %      Compute closing of an input image X with respect to the defined
 %      2x2 structural element B {(-1,-1), (-1,0), (0,0), (0, -1)}
-%      
+%
 % Input Variables:
 %      X       MxN input 2D binary image
-%      
+%
 % Returned Results:
 %      A       image X after closing by the structure element
 %              {(-1,-1), (-1,0), (0,0), (0, -1)}
 %
 % Processing Flow:
 %      1.  Compute dilation of image X with respect to the structure
-%      element B. The basic idea is: 
-%           - for each pixel (i,j) in X, check whether B translated by (i,j), 
+%      element B. The basic idea is:
+%           - for each pixel (i,j) in X, check whether B translated by (i,j),
 %           which is B_(i,j), hits X or not.
 %           - If yes, pixel (i,j) is in the new image X_dil after dilation.
 %           Otherwise, pixel (i,j) is not in X_dial.
-%      2. Compute erosion of X_dil with respect to B_s. The basic idea is: 
-%           - for each pixel (i,j) in X, check whether B translated by (i,j), 
+%      2. Compute erosion of X_dil with respect to B_s. The basic idea is:
+%           - for each pixel (i,j) in X, check whether B translated by (i,j),
 %           which is B_(i,j), is included in X or not.
 %           - If yes, pixel (i,j) is present in the new image A after erosion.
-%           Otherwise, it is not in A. 
+%           Otherwise, it is not in A.
 %
 %  Restrictions/Notes:
-%      X should be binary image.  
+%      X should be binary image.
 %
 %  The following functions are called:
 %      none
@@ -36,7 +36,7 @@ function A = closing(X)
 % Get the dimension of X
 [m, n] = size(X);
 
-% Compute dilation of X by the structure element 
+% Compute dilation of X by the structure element
 % B = {(-1,-1), (-1,0), (0,0), (0, -1)}, and store it in X_dil
 X_dil= X;
 
@@ -52,7 +52,7 @@ for i=2:m
     end
 end
 
-% Compute dilation of X_dil by the structure element 
+% Compute dilation of X_dil by the structure element
 % B_s = {(1,1), (1,0), (0,0), (0, 1)}, and store it in A
 A = X;
 for i=1:m-1
