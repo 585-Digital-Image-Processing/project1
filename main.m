@@ -26,8 +26,8 @@
 %      mean3x3.m    filter with a 3x3 mean filter
 %          worked into the code below - try to do this yourself
 %
-%  Author:      William E. Higgins
-%  Date:        1/7/2020
+%  Author:      Yanxi Yang, Jiuchao Yin, Hongjie Liu
+%  Date:        1/30/2020
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
