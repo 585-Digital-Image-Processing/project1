@@ -14,7 +14,7 @@
 %
 % Processing Flow:
 %      1.  Padding image with 0s, so that the border of the image could 
-%          processed propery
+%          processed properly
 %      2.  For each valid pixel (i,j) in X, check whether the stucturing 
 %          element A can be included in X after translate with (i,j)
 %             If yes, in the erosion image B, B(i,j) = 1
