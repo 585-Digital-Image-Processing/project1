@@ -35,7 +35,7 @@
 f=imread('RandomDisks-P10.jpg');
 figure()
 imshow(f);
-title('Original gray Image');
+title('Original Image');
 
 % Step 2: Convert the original rgb image to gray level
 f1 = f(:,:,1);
