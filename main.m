@@ -31,13 +31,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% Step1: Load the image f, and take its gray layer
+% Step1: Load the image f
 f=imread('RandomDisks-P10.jpg');
-f1 = f(:,:,1);
-imshow(f1);
-title('Original Image');
+figure()
+imshow(f);
+title('Original gray Image');
 
-% Step 2: Convert the gray image to binary image B and show it
+% Step 2: Convert the original rgb image to gray level
+f1 = f(:,:,1);
+% convert gray image to binary image
 f2= biImageConv(f1); 
 figure()
 imshow(f2);
@@ -59,6 +61,7 @@ new_B = closing(B_open);
 figure();
 imshow(new_B);
 title('closing')
+
 
 % Step 4: find all circles in the image and get their centers and radius
 % with imfindcircles
