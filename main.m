@@ -123,7 +123,6 @@ imshow(smallest);
 title('Position of Smallest Disks');
 
 % Step 6: find the biggest circles
-
 % generate structuring element A_biggest
 [r1, c1]=meshgrid(1:65);
 A_biggest=sqrt((r1-floor(65/2)).^2+(c1-floor(65/2)).^2)<31;
@@ -157,8 +156,25 @@ imshow(biggest);
 title('Position of Biggest Disks');
 
 
+% Step 7: Try to find the circles without removing noises
 
+f2_c=xor(f2,1);
 
+% find the smallest circles and show their positions
+left=erosion(f2,A);
+right=erosion(f2_c,B);
+smallest=bitand_s(left,right);
+figure()
+imshow(smallest);
+title('Position of Smallest Disks (without noise removal)');
+
+% Find the biggest circles and show their positions
+left_biggest=erosion(f2,A_biggest);
+right_biggest=erosion(f2_c,B_biggest);
+biggest=bitand_s(left_biggest,right_biggest);
+figure()
+imshow(biggest);
+title('Position of Biggest Disks (without noise removal)');
 
 
 

@@ -52,13 +52,12 @@ for i=2:m
     end
 end
 
-
 % Compute dilation of X_dil by the structure element 
 % B_s = {(1,1), (1,0), (0,0), (0, 1)}, and store it in A
 A = X;
 for i=1:m-1
-    for j=1:m-1
-        % check whether B_(i,j) is included in X or not
+    for j=1:n-1
+        % check whether B_(i,j) is included in X_dil or not
         % If yes, A(i,j) is 1; otherwise A(i,j) is 0.
         if (X_dil(i+1,j+1)==1 && X_dil(i+1,j)==1 && X_dil(i,j) == 1 && X_dil(i, j+1) == 1 )
             A(i,j)=1;
