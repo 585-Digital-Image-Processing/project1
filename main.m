@@ -13,9 +13,11 @@
 %      biggest      An image indicating locations of biggest circles in B
 %
 % Processing Flow:
-%      1.  Load and display input image
-%      2.  Compute and write clipped version of input image
-%      3.  Compute and display 3x3 neighborhood-average of input image
+%      1.  Load, extract the gray layer, and display the input image
+%      2.  Convert the input image into binary image
+%      3.  use opening and closing to remove noise at the background and
+%          inside circles
+%      4.  Find all circles in the image and get their centers and radius
 %          
 %
 %  Restrictions/Notes:
@@ -53,8 +55,8 @@ figure();
 imshow(B_open);
 title('Opening')
 
-% closing: fill the cavities inside circles with structural element
-%{(-1,-1), (-1,0), (0,0), (0, -1)}, and show it
+% closing: to fill the white noise in the black disks with structural 
+% element{(-1,-1), (-1,0), (0,0), (0, -1)}, and display it
 new_B = closing(B_open);
 figure();
 imshow(new_B);

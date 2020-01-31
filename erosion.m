@@ -1,8 +1,8 @@
 %%%%%%%%%%%%%  Function erosion %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Purpose:  
 %      Compute erosion of an input image X with respect to an input 
-%      structural element A. Note that the dimension of the structuring 
-%      element must be odd, so that A = A^s is possible
+%      structural element A. Note that the number of rows and columns of A
+%      must be odd, so that A = A^s is possible.
 %      
 %
 % Input Variables:
@@ -15,14 +15,15 @@
 % Processing Flow:
 %      1.  Padding image with 0s, so that the border of the image could 
 %          processed propery
-%      2.  For each valid pixel (x,y) in X, check whether the stucturing 
-%          element A can be included in X after translate with (x,y)
-%             If yes, in the erosion image B, B(x,y) = 1
-%             Otherwise, B(x,y) = 0
+%      2.  For each valid pixel (i,j) in X, check whether the stucturing 
+%          element A can be included in X after translate with (i,j)
+%             If yes, in the erosion image B, B(i,j) = 1
+%             Otherwise, B(i,j) = 0
 %
 %  Restrictions/Notes:
-%      This function only takes an structuring element of odd dimensions.  
-%
+%      X and A must be binary images.
+%      The number of rows and columns of A must be odd. 
+%      
 %  The following functions are called:
 %      none
 %

@@ -1,59 +1,68 @@
 %%%%%%%%%%%%%  Function opening %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Purpose:  
-%      Compute opening of an input image X with respect to an input 
-%      structural element A. Note that the dimension fo the  structural 
-%      element must be odd, so that A = A^s is possible
+%      Compute opening of an input image X with respect to the defined
+%      structural element B {(-1,-1), (-1,0)}.
 %      
-%
 % Input Variables:
-%      X       MxN input 2D binary image to be eroded
-%      A       rxc structural element, r and c are both odd
+%      X       MxN input 2D binary image
 %      
 % Returned Results:
-%      B       Result after erosion
+%      A       image X after openning by the structure element
+%              B = {(-1,-1), (-1,0)}
 %
 % Processing Flow:
-%      1.  Padding image with 0s, so that the border of the image could 
-%          processed propery
-%      2.  For each valid pixel (x,y) in X, check whether the stuctural 
-%          element A can be included in X after translate with (x,y)
-%             If yes, in the erosion image B, B(x,y) = 1
-%             Otherwise, B(x,y) = 0
+%      1.  Compute erosion of image X with respect to the structure
+%      element B. The basic idea is: 
+%           - for each pixel (i,j) in X, check whether B translated by (i,j), 
+%           which is B_(i,j), is included in X or not.
+%           - If yes, pixel (i,j) is in the new image X_ero after erosion.
+%           Otherwise, pixel (i,j) is not in X_ero.
+%      2. Compute dilation of X_ero with respect to B_s. The basic idea is: 
+%           - for each pixel (i,j) in X, check whether B translated by (i,j), 
+%           which is B_(i,j), hits X or not.
+%           - If yes, pixel (i,j) is present in the new image A after dilation.
+%           Otherwise, it is not in A. 
 %
 %  Restrictions/Notes:
-%      This function only takes an structural element of odd dimensions.  
+%      X should be binary image.  
 %
 %  The following functions are called:
 %      none
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function X = opening(B)
 
-[m, n] = size(B);
-B_ero= B;
-X = B;
-% opening: to remove the black noise in background
-% B = [(-1,-1), (-1,0)]
-% Bs = [(1,1), (1,0)]
-% close
-% erosion
+function A = opening(X)
+
+% Get the size of X
+[m, n] = size(X);
+
+% Compute erosion of X by the structure element 
+% B = {(-1,-1), (-1,0)}, and store it in X_ero
+
+X_ero= X;
 for i=2:m
     for j=2:n
-        if ( B(i-1,j-1)==1 && B(i-1,j)==1)
-            B_ero(i,j)=1;
+        % check whether B_(i,j) is included in X or not
+        % If yes, X_ero(i,j) is 1; otherwise X_ero(i,j) is 0.
+        if ( X(i-1,j-1)==1 && X(i-1,j)==1)
+            X_ero(i,j)=1;
         else
-            B_ero(i,j)=0;
+            X_ero(i,j)=0;
         end
     end
 end
 
-% Dilation
+% Compute dilation of X_ero by the structure element 
+% B = {(1,1), (1,0)}, and store it in A
+A = X;
 for i=1:m-1
     for j=1:n-1
-        if (B_ero(i+1,j+1)==1 || B_ero(i+1,j)==1 )
-            X(i,j)=1;
+        % check whether B_(i,j) hits X or not
+        % If yes, A(i,j) is 1; otherwise A(i,j) is 0.
+        if (X_ero(i+1,j+1)==1 || X_ero(i+1,j)==1 )
+            A(i,j)=1;
         else
-            X(i,j)=0;
+            A(i,j)=0;
         end
     end
 end

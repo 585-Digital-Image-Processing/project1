@@ -1,8 +1,8 @@
 %%%%%%%%%%%%%  Function dilation_s %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Purpose:  
 %      Compute dilation of an input image X with respect to an input 
-%      structural element A. Note that the dimension of the structuring 
-%      element must be odd, so that A = A^s is possible
+%      structural element A. Note that the number of rows and columns of A
+%      must be odd, so that A = A^s is possible.
 %      
 %
 % Input Variables:
@@ -21,7 +21,8 @@
 %             Otherwise, newimg(x,y) = 0
 %
 %  Restrictions/Notes:
-%      This function only takes an structuring element of odd dimensions.  
+%      X and A must be binary images.
+%      The number of rows and columns of A must be odd.   
 %
 %  The following functions are called:
 %      none
