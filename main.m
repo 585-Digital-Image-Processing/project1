@@ -8,6 +8,8 @@
 % Returned Results:
 %      B            A binary image of f
 %      new_B        Image B after noise removal
+%      min_r        Radius of the smallest circles
+%      max_r        Radius of the biggest circles
 %      smallest     An image indicating locations of smallest circles in B
 %      biggest      An image indicating locations of biggest circles in B
 %
