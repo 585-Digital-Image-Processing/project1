@@ -1,13 +1,13 @@
 %%%%%%%%%%%%%  Function erosion %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Purpose:  
 %      Compute erosion of an input image X with respect to an input 
-%      structural element A. Note that the number of rows and columns of A
+%      structuring element A. Note that the number of rows and columns of A
 %      must be odd, so that A = A^s is possible.
 %      
 %
 % Input Variables:
 %      X       MxN input 2D binary image to be eroded
-%      A       rxc structural element, r and c are both odd
+%      A       rxc structuring element, r and c are both odd
 %      
 % Returned Results:
 %      B       Result after erosion
