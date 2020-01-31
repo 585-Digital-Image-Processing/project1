@@ -16,7 +16,7 @@
 %      1.  Padding image with 0s, so that the border of the image could 
 %          processed propery
 %      2.  For each valid pixel (x,y) in X, check whether the stucturing 
-%          element A can hit X after translate with (x,y)
+%          element A can hit X after translated with (x,y)
 %             If yes, in the dilation image newimg, newimg(x,y) = 1
 %             Otherwise, newimg(x,y) = 0
 %
